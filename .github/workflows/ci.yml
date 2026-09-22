@@ -1,38 +1,38 @@
 name: Python CI
 
 on:
-
- push:
-  branches: ["main"]
- pull_request:
-  branches: ["main"]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
- test:
- runs-on: ubuntu-latest
-  steps :
-   - name: Checkout code
-     uses: actions/checkout@v4
+  test:
+    runs-on: ubuntu-latest
 
-   - name: Set up Python
-     uses: actions/setup-python@v5
-     with:
-      python-version: "3.12"
-      cache: "pip"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-   - name: Install dependencies
-     run: pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
 
-   - name: Run tests
-     run: pytest
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-   - name: Build source artifact
-     run: |
-      mkdir -p dist
-      cp factorial.py test_factorial.py requirements.txt dist/
+      - name: Run tests
+        run: pytest
 
-   - name: Upload artifact
-     uses: actions/upload-artifact@v4
-     with:
-      name: factorial-python
-      path: dist/
+      - name: Build source artifact
+        run: |
+          mkdir -p dist
+          cp fact.py test_fact.py requirements.txt dist/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: factorial-python
+          path: dist/
